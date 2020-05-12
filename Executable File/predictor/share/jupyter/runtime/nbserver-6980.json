@@ -1,0 +1,11 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "notebook_dir": "D:\\team23_project",
+  "password": false,
+  "pid": 6980,
+  "port": 8888,
+  "secure": false,
+  "token": "20719777c41f0788f101ed5611a2cd62df8c350546164140",
+  "url": "http://localhost:8888/"
+}
