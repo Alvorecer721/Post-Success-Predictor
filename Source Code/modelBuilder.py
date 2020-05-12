@@ -23,6 +23,9 @@ import pandas as pd
 import threading
 import gc
 import sys
+import findspark
+
+findspark.init()
 
 # %% UI
 def resource_path(relative_path):
@@ -311,11 +314,13 @@ def model_builder(CSV_PATH, LABEL_NAME, PERCENTILE, MODEL_NAME, WORKING_DIR, fol
         .addGrid(rf.numTrees, [int(x) for x in np.linspace(start=10, stop=20, num=3)]) \
         .addGrid(rf.maxDepth, [int(x) for x in np.linspace(start=5, stop=20, num=3)]) \
         .build()
+    
+    rfEvaluator = RegressionEvaluator(predictionCol="prediction", labelCol=LABEL_NAME, metricName="rmse")
 
     # Create cross validator
     crossval = CrossValidator(estimator=pipeline,
                               estimatorParamMaps=paramGrid,
-                              evaluator=RegressionEvaluator(),
+                              evaluator=rfEvaluator,
                               numFolds=int(folds))
     # Train rf model with crossvalidator
     cvModel = crossval.fit(train_df)
